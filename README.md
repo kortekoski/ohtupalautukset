@@ -1,2 +1,4 @@
 # ohtupalautukset
-Laskuharjoitukset ohjelmistotuotannon kurssille (TKT20006).
+Laskuharjoitukset syksyn 2025 ohjelmistotuotannon kurssille (TKT20006).
+
+https://github.com/kortekoski/ohtuvarasto
