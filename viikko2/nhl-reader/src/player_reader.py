@@ -6,7 +6,7 @@ class PlayerReader:
         self.url = url
 
     def get_seasons(self):
-        response = requests.get(self.url)
+        response = requests.get(self.url, timeout=10)
 
         # read the root page as text and get the string containing available seasons
         seasons_text = response.text.split('available ')[1].split('<')[0]
@@ -21,7 +21,7 @@ class PlayerReader:
 
     def get_players(self, season):
         season_url = f'{self.url}{season}/players'
-        response = requests.get(season_url).json()
+        response = requests.get(season_url, timeout=10).json()
 
         players = []
 

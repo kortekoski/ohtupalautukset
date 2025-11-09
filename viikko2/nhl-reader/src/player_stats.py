@@ -16,7 +16,7 @@ class PlayerStats:
             nationalities.add(player.get_nationality())
 
         return nationalities
-    
+
     def sort_players(self, players):
         def sort_by_points(player):
             return player.points
@@ -28,7 +28,7 @@ class PlayerStats:
         )
 
         return sorted_players
-    
+
     def top_scorers_by_nationality(self, nationality):
         listed_players = []
 
@@ -37,9 +37,8 @@ class PlayerStats:
                 listed_players.append(player)
 
         sorted_players = self.sort_players(listed_players)
-        
         return sorted_players
-    
+
     def print_table(self, players, nationality):
         table = Table(title=f"Top scorers ({nationality})")
 
