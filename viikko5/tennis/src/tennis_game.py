@@ -8,7 +8,7 @@ class TennisGame:
     def won_point(self, player_name):
         if player_name == self.player1.get_name():
             self.player1.add_point()
-        if player_name == self.player2.get_name():
+        elif player_name == self.player2.get_name():
             self.player2.add_point()
 
     def define_draw(self):
