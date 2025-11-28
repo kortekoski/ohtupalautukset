@@ -33,7 +33,7 @@ class TennisGame:
             return f"Advantage {player.get_name()}"
         if advantage >= 2:
             return f"Win for {player.get_name()}"
-    
+        return "Deuce"
     def define_win_or_deuce(self):
         player1_advantage = self.player1.get_score() - self.player2.get_score()
 
