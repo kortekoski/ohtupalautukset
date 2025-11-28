@@ -1,55 +1,55 @@
+from entities.player import Player
+
 class TennisGame:
     def __init__(self, player1_name, player2_name):
-        self.player1_name = player1_name
-        self.player2_name = player2_name
-        self.m_score1 = 0
-        self.m_score2 = 0
+        self.player1 = Player(player1_name)
+        self.player2 = Player(player2_name)
 
     def won_point(self, player_name):
-        if player_name == "player1":
-            self.m_score1 = self.m_score1 + 1
+        if player_name == self.player1.get_name():
+            self.player1.add_point()
+        if player_name == self.player2.get_name():
+            self.player2.add_point()
+
+    def define_draw(self):
+        current_score = self.player1.get_score()
+
+        draw_calls = {
+            0: "Love-All",
+            1: "Fifteen-All",
+            2: "Thirty-All"
+        }
+
+        return draw_calls.get(current_score, "Deuce")
+        
+    def is_score_drawn(self):
+        return self.player1.get_score() == self.player2.get_score()
+    
+    def player_has_winning_score(self):
+        return self.player1.has_winning_score() or self.player2.has_winning_score()
+    
+    def advantage_to_string(self, player, advantage):
+        if advantage == 1:
+            return f"Advantage {player.get_name()}"
+        if advantage >= 2:
+            return f"Win for {player.get_name()}"
+    
+    def define_win_or_deuce(self):
+        player1_advantage = self.player1.get_score() - self.player2.get_score()
+
+        if player1_advantage > 0:
+            return self.advantage_to_string(self.player1, player1_advantage)
         else:
-            self.m_score2 = self.m_score2 + 1
+            return self.advantage_to_string(self.player2, abs(player1_advantage))
+        
+    def get_score_call(self):
+        return f"{self.player1.get_score_call()}-{self.player2.get_score_call()}"
 
     def get_score(self):
-        score = ""
-        temp_score = 0
+        if self.is_score_drawn():
+            return self.define_draw()
+        
+        if self.player_has_winning_score():
+            return self.define_win_or_deuce()
 
-        if self.m_score1 == self.m_score2:
-            if self.m_score1 == 0:
-                score = "Love-All"
-            elif self.m_score1 == 1:
-                score = "Fifteen-All"
-            elif self.m_score1 == 2:
-                score = "Thirty-All"
-            else:
-                score = "Deuce"
-        elif self.m_score1 >= 4 or self.m_score2 >= 4:
-            minus_result = self.m_score1 - self. m_score2
-
-            if minus_result == 1:
-                score = "Advantage player1"
-            elif minus_result == -1:
-                score = "Advantage player2"
-            elif minus_result >= 2:
-                score = "Win for player1"
-            else:
-                score = "Win for player2"
-        else:
-            for i in range(1, 3):
-                if i == 1:
-                    temp_score = self.m_score1
-                else:
-                    score = score + "-"
-                    temp_score = self.m_score2
-
-                if temp_score == 0:
-                    score = score + "Love"
-                elif temp_score == 1:
-                    score = score + "Fifteen"
-                elif temp_score == 2:
-                    score = score + "Thirty"
-                elif temp_score == 3:
-                    score = score + "Forty"
-
-        return score
+        return self.get_score_call()
