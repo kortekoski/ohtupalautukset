@@ -17,7 +17,7 @@ class Player:
             3: "Forty"
         }
         
-        return score_calls.get(self.score)
+        return score_calls.get(self.score, 'Forty')
     
     def add_point(self) -> None:
         self.score += 1
